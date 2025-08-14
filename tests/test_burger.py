@@ -19,30 +19,12 @@ class TestBurger:
         assert len(burger.ingredients) == initial_count - 1
         assert "Ingredient 1" not in [ing.get_name() for ing in burger.ingredients]
 
-    def test_move_ingredient(burger, mock_ingredients):
+    def test_move_ingredient(self, burger, mock_ingredients):
         burger.ingredients = mock_ingredients
 
-        burger.move_ingredient(2, 0)  # Перемещаем третий ингредиент на первое место
+        burger.move_ingredient(2, 0)
         assert burger.ingredients[0].get_name() == "Ingredient 2"
         assert burger.ingredients[1].get_name() == "Ingredient 0"
-
-    @pytest.mark.parametrize(
-        "ingredients, expected_price",
-        [
-            ([], 1.5 * 2),  # Только булочки
-            ([0.75, 1.0], 1.5 * 2 + 0.75 + 1.0),  # Булочка и два ингредиента
-            ([0.5, 1.0, 1.5], 1.5 * 2 + 0.5 + 1.0 + 1.5),  # Булочка и три ингредиента
-        ],
-    )
-    def test_get_price(burger, mock_bun, ingredients, expected_price):
-        """Тест подсчёта цены бургера."""
-        burger.set_buns(mock_bun)
-        for price in ingredients:
-            ingredient = MagicMock()
-            ingredient.get_price.return_value = price
-            burger.add_ingredient(ingredient)
-
-        assert burger.get_price() == expected_price
 
     @pytest.mark.parametrize(
         "ingredient_indexes, expected_price",
@@ -52,7 +34,7 @@ class TestBurger:
             ([0, 1, 2], 200 * 2 + 100 + 150 + 200),
         ],
     )
-    def test_get_price_with_fixture_mocks(self, burger, mock_bun, mock_ingredients, ingredient_indexes, expected_price):
+    def test_get_price(self, burger, mock_bun, mock_ingredients, ingredient_indexes, expected_price):
         burger.set_buns(mock_bun)
 
         for idx in ingredient_indexes:

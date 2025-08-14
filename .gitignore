@@ -79,4 +79,4 @@ fabric.properties
 .idea
 .venv
 __pycache__/
-
+.coverage
