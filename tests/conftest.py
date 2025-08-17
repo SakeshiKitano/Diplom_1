@@ -3,9 +3,7 @@ from praktikum.database import Database
 from unittest.mock import MagicMock
 from praktikum.burger import Burger
 
-@pytest.fixture
-def burger():
-    return Burger()
+
 
 @pytest.fixture
 def mock_bun():
